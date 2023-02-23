@@ -56,13 +56,15 @@ class Planet {
 }
 
 class Earth: Planet {
-    override func orbiting() {         //Переопределяю метод
+    override func orbiting() {            //Переопределяю метод
         print("Земля вращается по орбите так")
-        super.orbiting()               //Вызываю родительский метод
+        super.orbiting()                   //Вызываю родительский метод
         print("Абстрактная планета вращается по орбите так")
     }
 }
 
 var earthOrbiting = Earth()
 earthOrbiting.orbiting()
+
+
 
