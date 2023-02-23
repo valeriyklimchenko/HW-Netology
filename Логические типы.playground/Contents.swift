@@ -7,11 +7,13 @@ let may = "май"
 let june = "июнь"
 let july = "июль"
 let august = "август"
-let september = "сениябрь"
+let september = "сентябрь"
 let october = "октябрь"
-let november = "ноябрь"
+var november = "ноябрь"
 let december = "декабрь"
+
 var selectedMonth = october
+
 if selectedMonth == january {
     print("В месяце \(selectedMonth) 16 рабочих дней")
 }
@@ -54,6 +56,7 @@ else {
 
 //Задание 2
 selectedMonth = february
+
 switch selectedMonth {
 case january:
     print("В месяце \(selectedMonth) 16 рабочих дней")
@@ -85,6 +88,7 @@ default:
 
 //Задание 3
 var isHoliday: Bool = true
+
 isHoliday ? print("Это выходной день") : print("Это рабочий день")
 
 //Задание 4
@@ -118,5 +122,5 @@ enum selectedMonthWithEnum {
         }
     }
 }
-
-print(selectedMonthWithEnum.november)
+print(selectedMonthWithEnum.september)
+print(selectedMonthWithEnum.september.description)
