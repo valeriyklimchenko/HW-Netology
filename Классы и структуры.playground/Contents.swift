@@ -1,126 +1,110 @@
 //Задание 1
-let january = "январь"
-let february = "февраль"
-let march = "март"
-let april = "апрель"
-let may = "май"
-let june = "июнь"
-let july = "июль"
-let august = "август"
-let september = "сентябрь"
-let october = "октябрь"
-var november = "ноябрь"
-let december = "декабрь"
+class TV {
 
-var selectedMonth = october
+    let model: String
+    var isEnable: Bool
+    var channel: Channel
 
-if selectedMonth == january {
-    print("В месяце \(selectedMonth) 16 рабочих дней")
-}
-else if selectedMonth == february {
-    print("В месяце \(selectedMonth) 19 рабочих дней")
-}
-else if selectedMonth == march {
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-}
-else if selectedMonth == april {
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-}
-else if selectedMonth == may {
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-}
-else if selectedMonth == june {
-    print("В месяце \(selectedMonth) 21 рабочий день")
-}
-else if selectedMonth == july {
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-}
-else if selectedMonth == august {
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-}
-else if selectedMonth == september {
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-}
-else if selectedMonth == october {
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-}
-else if selectedMonth == november {
-    print("В месяце \(selectedMonth) 21 рабочий день")
-}
-else if selectedMonth == december {
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-}
-else {
-    print("месяц не определен")
-}
+    init(model: String, isEnable: Bool, channel: Channel) {
+        self.model = model
+        self.isEnable = isEnable
+        self.channel = channel
+    }
 
-//Задание 2
-selectedMonth = february
+    enum Channel: String {
+        case first = "Первый"
+        case mtv = "MTV"
+        case tnt = "ТНТ"
+        case cityChannal = "Городской"
+        case friday = "Пятница"
+    }
 
-switch selectedMonth {
-case january:
-    print("В месяце \(selectedMonth) 16 рабочих дней")
-case february:
-    print("В месяце \(selectedMonth) 19 рабочих дней")
-case march:
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-case april:
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-case may:
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-case june:
-    print("В месяце \(selectedMonth) 21 рабочий день")
-case july:
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-case august:
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-case september:
-    print("В месяце \(selectedMonth) 22 рабочих дня")
-case october:
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-case november:
-    print("В месяце \(selectedMonth) 21 рабочий день")
-case december:
-    print("В месяце \(selectedMonth) 23 рабочих дня")
-default:
-    break
-}
+    func currentChannel(channel: Channel) {
+        if isEnable == true {
+            print("Вы смотрите телеканал \(channel.rawValue)")
+        } else {
+            print("Телевизор сейчас выключен")
+        }
+    }
 
-//Задание 3
-var isHoliday: Bool = true
-
-isHoliday ? print("Это выходной день") : print("Это рабочий день")
-
-//Задание 4
-enum selectedMonthWithEnum {
-    case january
-    case february
-    case march
-    case april
-    case may
-    case june
-    case july
-    case august
-    case september
-    case october
-    case november
-    case december
-    var description: String {
-        switch self {
-        case .january: return "январь"
-        case .february: return "февраль"
-        case .march: return "март"
-        case .april: return "апрель"
-        case .may: return "май"
-        case .june: return "июнь"
-        case .july: return "июль"
-        case .august: return "август"
-        case .september: return "сентябрь"
-        case .october: return "октябрь"
-        case .november: return "ноябрь"
-        case .december: return "декабрь"
+    func whatIsOnTVNow(whatIsTV: String = "Орел и решка") {
+        if isEnable == true {
+            print(whatIsTV)
+        } else {
+            print("Телевизор сейчас выключен")
         }
     }
 }
-print(selectedMonthWithEnum.september)
-print(selectedMonthWithEnum.september.description)
+
+
+
+let tv = TV(model: "Samsung", isEnable: true, channel: .friday)
+//tv.currentChannel(channel: .friday)
+//tv.whatIsOnTVNow()
+//
+//tv.whatIsOnTVNow(whatIsTV: "Какая то передача")
+//
+//tv.isEnable = false
+//tv.whatIsOnTVNow()
+
+
+
+//Задание 2
+
+struct Settings {
+    var isBlackAndWight: Bool = false
+//    var volume: Double
+
+    func volume(vol: inout Double) {
+        if vol > 1 {
+            vol = 1
+        };if vol < 0 {
+            vol = 0
+        } else {
+            vol
+        }
+    }
+}
+
+class TVWithSrttings {
+
+    var colorTV = Settings(isBlackAndWight: false)
+    
+    let model: String
+    var isEnable: Bool
+    var channel: Channel
+//    var v = Settings()
+
+
+//    var volume: Settings = vol
+
+    init(model: String, isEnable: Bool, channel: Channel) {
+        self.model = model
+        self.isEnable = isEnable
+        self.channel = channel
+    }
+
+    enum Channel: String {
+        case first = "Первый"
+        case mtv = "MTV"
+        case tnt = "ТНТ"
+        case cityChannal = "Городской"
+        case friday = "Пятница"
+    }
+
+    func currentChannel(channel: Channel) {
+        if isEnable == true {
+            print("Вы смотрите телеканал \(channel.rawValue)")
+        } else {
+            print("Телевизор сейчас выключен")
+        }
+    }
+
+    func whatIsOnTVNow(whatIsTV: String = "Орел и решка") {
+        if isEnable == true {
+            print(whatIsTV)
+        } else {
+            print("Телевизор сейчас выключен")
+        }
+    }
+}
