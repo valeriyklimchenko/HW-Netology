@@ -48,3 +48,31 @@ for _ in array {
         print("в массиве нет чисел, дающих в сумме 6")
     }
 }
+
+
+//Метод полного перебора
+
+var arrayFull = [1, 2, 3, 4, 7, 8, 15]
+
+var elementsQuantity = arrayFull.endIndex
+
+var firstIndex = 0
+var secondIndex = 0
+
+for n in arrayFull {
+
+    for m in arrayFull {
+
+        var summ = n + m
+
+        if summ == 6{
+            print(firstIndex, secondIndex)
+        }
+
+    secondIndex += 1
+    }
+    firstIndex += 1
+    secondIndex = 0
+}
+
+
