@@ -13,6 +13,9 @@ func timeCounting (from startStop: String, to finishStop: String) -> (Int, Bool)
 
     if transportStop[startStop] == nil {
         print("Неверно указан пункт отправления")
+        if transportStop[finishStop] == nil {
+            print("Неверно указан пункт назначения")
+        }
         return nil
     }
     if transportStop[finishStop] == nil {
@@ -25,6 +28,6 @@ func timeCounting (from startStop: String, to finishStop: String) -> (Int, Bool)
 
 }
 
-var travelTime1 = timeCounting(from: "second", to: "sith")
+var travelTime1 = timeCounting(from: "s????econd", to: "six?????th")
 print(travelTime1 ?? "")
 
