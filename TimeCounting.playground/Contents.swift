@@ -29,6 +29,7 @@ func timeCounting (from startStop: String, to finishStop: String) -> (Int, Bool)
 
 }
 
-var travelTime1 = timeCounting(from: "s????econd", to: "six?????th")
-print(travelTime1 ?? "")
+print(timeCounting(from: "s????econd", to: "six?????th") as Any)
+
+print(timeCounting(from: "second", to: "sixth") as Any)
 
