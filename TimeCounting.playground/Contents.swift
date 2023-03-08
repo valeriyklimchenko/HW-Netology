@@ -9,6 +9,7 @@ var transportStop = [
     "seventh": 43
 ]
 
+
 func timeCounting (from startStop: String, to finishStop: String) -> (Int, Bool)? {
 
     if transportStop[startStop] == nil {
