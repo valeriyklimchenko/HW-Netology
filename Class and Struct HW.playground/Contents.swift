@@ -1,47 +1,48 @@
-//import Darwin
-//import CoreGraphics
-//import Foundation
+//Task 1
 
 class TV {
-    let model: String = "Samsung"
+    let model: [String]
     var Enable: Bool = true
-    //    var currentChannal: String
-    init(Enable:Bool){
+    var channel: Channel
+    init(model: [String], Enable: Bool, channel: Channel) {
+        self.model = model
         self.Enable = Enable
+        self.channel = channel
+    }
+
+    enum Channel {
+        case first
+        case mtv
+        case tnt
+        case cityChannal
+        case friday
+    }
+
+    func whatIsOnTVNow() {
+        if Enable == true {
+            print("TV channel \(channel)")
+        } else {
+            print("Black screen")
+        }
     }
 }
 
-enum Channel: Int {
-    case first
-    case mtv
-    case tnt
-    case cityChannal
-    case friday
-}
+var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.first)
 
-var channel = Channel.friday
-print(channel.rawValue)
-//    var channel = Channel(rawValue: 3)
-//    switch channel {
-//    case .tnt:
-//        print()
-//    default:
-//        print()
-//        }
-        //    switch Channel {
-        //    case 0:
-        //        self = .first
-        //    case 1:
-        //        self = .mtv
-        //    case 2:
-        //        self = .tnt
-        //    case 1:
-        //        self = .cityChannal
-        //    case 1:
-        //        self = .friday
-        //    }
+samsungTV.whatIsOnTVNow()
+samsungTV.channel = TV.Channel.friday
+samsungTV.whatIsOnTVNow()
+samsungTV.Enable = false
+samsungTV.whatIsOnTVNow()
 
 
 
-        //    func whatIsOnTVNow() {
-        //        let channel = Channel.allCases.randomElement()!
+//Task 2
+
+
+
+
+
+
+
+
