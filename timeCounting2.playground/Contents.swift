@@ -1,62 +1,24 @@
-//Task 1
-var informationAboutOneOfMyFriends = (favouriteFilm: "Титаник", favoutiteNumber: 7, favouriteDish: "Лазанья")
+let station: [String: Int] = ["Kotelniky" : 0,
+                              "Zhulebino" : 4,
+                              "Kosino" : 8,
+                              "Vihino" : 10,
+                              "Ryazanka" : 15,
+                              "Tekstilshiky" : 19,
+                              "Taganka" : 24]
 
-let(favouriteFilm, favoutiteNumber, favouriteDish) = informationAboutOneOfMyFriends
+func travelTime (from startPoint: String, to finishPoint: String) -> Int {
 
-var informationAboutMe = (favouriteFilm: "Сломанная стрела", favoutiteNumber: 13, favouriteDish: "Суп")
-
-var saveInformationAboutMe  = informationAboutMe
-informationAboutMe = informationAboutOneOfMyFriends
-informationAboutOneOfMyFriends = saveInformationAboutMe
-
-informationAboutMe
-informationAboutOneOfMyFriends
-
-var newTuple = (informationAboutOneOfMyFriends.favoutiteNumber, informationAboutMe.favoutiteNumber, informationAboutOneOfMyFriends.favoutiteNumber - informationAboutMe.favoutiteNumber)
-
-newTuple
-
-
-
-//Task 2
-
-let dayBook = ["studentName": ["Chemistry", 5, "Elena Alekseevna"]]
-
-
-
-//Task 3
-print("Task3")
-typealias Chessman = [String: (Alpha: Character, number: Int)?]
-
-var chessman: Chessman = [
-    "White horse": ("A", 5),
-    "White King ": ("D", 9),
-    "Black queen": ("F", 3),
-    "Black paun": ("C", 6),
-    "Black paun 1": (nil)   //В словаре все ключи уникальны, поэтомы мы не можем указать два одинаковых ключа
-]
-//let value: String? =
-
-var value = chessman["Black paun 1"]
-
-if chessman.values == nil {
-    print("Фигура убита")
-} else {
-    print("Координаты фигуры \(value)")
-}
-
-
-
-//Task 4
-print("Task4")
-
-for (key, value) in chessman {
-    if chessman[key]! == nil {
-        print("Фигура '\(key)' убита")
-    } else {
-        print("Координаты фигуры '\(key)' \(value!)")
+    guard let timeToFirstStation = station[startPoint] else {
+        print("Start station is't correct")
+        return 0
+    }
+    guard let timeToSecondStation = station[finishPoint] else {
+        print("Finish station is't correct")
+        return 0
     }
 
+    let totalTime = timeToSecondStation - timeToFirstStation
+    return totalTime > 0 ? totalTime : -totalTime
 }
 
-
+print("Total time: ", travelTime(from: "Taganka", to: "Vihino"), " min.")
