@@ -41,31 +41,59 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: t
 
 struct Settings {
     var volumeControl: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
-    var isColorTV: Bool = false
+    var isColorTV: Bool = true
 }
 
-//class tvWhithSetings: TV {
+class tvWhithSetings: TV {
 
-var currentVolume = 0.5
-func turnUpTheVolume() {
-    var i = Settings().volumeControl.firstIndex(of: currentVolume)
-    if i! < Settings().volumeControl.endIndex - 1 {
-        currentVolume = Settings().volumeControl[i! + 1]
-        print("Вы увеличили громкость, уровень громкости \(currentVolume)")
-    } else {
-        print("Максимальная громкость \(currentVolume)")
+    var settings = Settings()
+    
+//    var color = settings.isColorTV
+    
+//    init(settings: Settings) {
+//        self.settings = settings
+//    }
+    
+    var currentVolume = 0.5
+    func turnUpTheVolume() {
+        var index = settings.volumeControl.firstIndex(of: currentVolume)
+        if index! < settings.volumeControl.endIndex - 1 {
+            currentVolume = settings.volumeControl[index! + 1]
+            print("Вы увеличили громкость, уровень громкости \(currentVolume)")
+        } else {
+            print("Максимальная громкость \(settings.volumeControl[settings.volumeControl.endIndex - 1])")
+        }
     }
+    
+    func turnDounTheVolume() {
+        var index = settings.volumeControl.firstIndex(of: currentVolume)
+        if index! > settings.volumeControl.startIndex {
+            currentVolume = settings.volumeControl[index! - 1]
+            print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
+        } else {
+            print("Звук выключен")
+        }
+    }
+    
 }
-//}
 
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
-turnUpTheVolume()
+var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+
+
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+
+//turnUpTheVolume()
+//turnUpTheVolume()
+//turnUpTheVolume()
+//turnUpTheVolume()
+//turnUpTheVolume()
+//turnUpTheVolume()
+//turnUpTheVolume()
 
 
 
