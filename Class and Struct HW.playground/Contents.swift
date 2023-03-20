@@ -39,18 +39,18 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: t
 
 //Task 2
 
-//struct Settings {
+struct Settings {
     var volumeControl: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     var isColorTV: Bool = false
-//}
+}
 
 //class tvWhithSetings: TV {
 
 var currentVolume = 0.5
 func turnUpTheVolume() {
-    var i = volumeControl.firstIndex(of: currentVolume)
-    if i! < volumeControl.endIndex - 1 {
-        currentVolume = volumeControl[i! + 1]
+    var i = Settings().volumeControl.firstIndex(of: currentVolume)
+    if i! < Settings().volumeControl.endIndex - 1 {
+        currentVolume = Settings().volumeControl[i! + 1]
         print("Вы увеличили громкость, уровень громкости \(currentVolume)")
     } else {
         print("Максимальная громкость \(currentVolume)")
@@ -75,27 +75,27 @@ turnUpTheVolume()
 
 
 
-class tvWhithSetings: TV {
-    
-    var settings = Settings()
-        
-    func onOffVolume(_ isSound: Bool = true) -> Double {
-        if isSound == true {
-            return 0.5
-        } else {
-            return 1
-        }
-    }
-}
-
-//tvWhithSetings().setting.isColorTV
-var sonyTV = tvWhithSetings(model: ["Sony", "KD-55X85K"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel)
-
-//sonyTV.setting.isColorTV = true
-//print(sonyTV.setting.isColorTV)
-
-sonyTV.whatIsOnTVNow()
-sonyTV.channel = tvWhithSetings.Channel.mtv
-sonyTV.whatIsOnTVNow()
+//class tvWhithSetings: TV {
+//
+//    var settings = Settings()
+//
+//    func onOffVolume(_ isSound: Bool = true) -> Double {
+//        if isSound == true {
+//            return 0.5
+//        } else {
+//            return 1
+//        }
+//    }
+//}
+//
+////tvWhithSetings().setting.isColorTV
+//var sonyTV = tvWhithSetings(model: ["Sony", "KD-55X85K"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel)
+//
+////sonyTV.setting.isColorTV = true
+////print(sonyTV.setting.isColorTV)
+//
+//sonyTV.whatIsOnTVNow()
+//sonyTV.channel = tvWhithSetings.Channel.mtv
+//sonyTV.whatIsOnTVNow()
 
 //print(tvWhithSetings(model: ["23"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel))
