@@ -40,23 +40,30 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: t
 //Task 2
 
 struct Settings {
-    var volumeControl: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    var volume: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     var isColorTV: Bool = true
 }
 
 class tvWhithSetings: TV {
 
     var settings = Settings()
+    var color = Settings().isColorTV
+    var volumeControl = Settings().volume
+    init(settings: Settings) {
+        self.settings = settings
+        self.color = color
+        self.volumeControl = volumeControl
+        super.init("Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+    }
     
-//    var color = settings.isColorTV
-    
-//    init(settings: Settings) {
-//        self.settings = settings
+    var currentVolume = volumeControl[5]
+//    super.init(currentVolume: Double) {
+//        self.currentVolume = currentVolume
 //    }
     
-    var currentVolume = 0.5
+//    print(currentVolume)
     func turnUpTheVolume() {
-        var index = settings.volumeControl.firstIndex(of: currentVolume)
+        let index = settings.volumeControl.firstIndex(of: currentVolume)
         if index! < settings.volumeControl.endIndex - 1 {
             currentVolume = settings.volumeControl[index! + 1]
             print("Вы увеличили громкость, уровень громкости \(currentVolume)")
@@ -66,7 +73,7 @@ class tvWhithSetings: TV {
     }
     
     func turnDounTheVolume() {
-        var index = settings.volumeControl.firstIndex(of: currentVolume)
+        let index = settings.volumeControl.firstIndex(of: currentVolume)
         if index! > settings.volumeControl.startIndex {
             currentVolume = settings.volumeControl[index! - 1]
             print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
@@ -75,11 +82,24 @@ class tvWhithSetings: TV {
         }
     }
     
+    override func whatIsOnTVNow() {
+        
+        color = Settings().isColorTV
+        if color == true {
+            print("цветной")
+        } else {
+            print("черно-белый")
+        }
+    }
+    
+//        print(currentVolume)
+    
 }
 
 var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
 
 
+sonyTV.whatIsOnTVNow()
 //sonyTV.turnDounTheVolume()
 //sonyTV.turnDounTheVolume()
 //sonyTV.turnDounTheVolume()
