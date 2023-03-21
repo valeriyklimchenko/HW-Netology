@@ -53,7 +53,7 @@ class tvWhithSetings: TV {
         self.settings = settings
         self.color = color
         self.volumeControl = volumeControl
-        super.init("Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
     }
     
     var currentVolume = volumeControl[5]
@@ -96,7 +96,7 @@ class tvWhithSetings: TV {
     
 }
 
-var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+var sonyTV = tvWhithSetings(settings: <#Settings#>, model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
 
 
 sonyTV.whatIsOnTVNow()
