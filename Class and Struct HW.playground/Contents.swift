@@ -94,36 +94,3 @@ var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Ena
 //turnUpTheVolume()
 //turnUpTheVolume()
 //turnUpTheVolume()
-
-
-
-
-
-
-
-
-
-//class tvWhithSetings: TV {
-//
-//    var settings = Settings()
-//
-//    func onOffVolume(_ isSound: Bool = true) -> Double {
-//        if isSound == true {
-//            return 0.5
-//        } else {
-//            return 1
-//        }
-//    }
-//}
-//
-////tvWhithSetings().setting.isColorTV
-//var sonyTV = tvWhithSetings(model: ["Sony", "KD-55X85K"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel)
-//
-////sonyTV.setting.isColorTV = true
-////print(sonyTV.setting.isColorTV)
-//
-//sonyTV.whatIsOnTVNow()
-//sonyTV.channel = tvWhithSetings.Channel.mtv
-//sonyTV.whatIsOnTVNow()
-
-//print(tvWhithSetings(model: ["23"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel))
