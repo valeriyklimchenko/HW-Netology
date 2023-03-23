@@ -1,25 +1,25 @@
 //Task 1
 
+enum Channel: String {
+    case first = "First"
+    case mtv = "MTV"
+    case tnt = "TNT"
+    case cityTVChannel = "City"
+    case friday = "Friday"
+}
+
 class TV {
     var model: [String]
-    var Enable: Bool = true
+    var isEnable: Bool
     var channel: Channel
     init(model: [String], Enable: Bool, channel: Channel) {
         self.model = model
-//        self.Enable = Enable
+        self.isEnable = true
         self.channel = channel
     }
 
-    enum Channel: String {
-        case first = "First"
-        case mtv = "MTV"
-        case tnt = "TNT"
-        case cityTVChannel = "City"
-        case friday = "Friday"
-    }
-
     func whatIsOnTVNow() {
-        if Enable == true {
+        if isEnable == true {
             print("TV channel \(channel.rawValue)")
         } else {
             print("Black screen")
@@ -27,12 +27,12 @@ class TV {
     }
 }
 
-var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.first)
+var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: Channel.first)
 
 //samsungTV.whatIsOnTVNow()
-//samsungTV.channel = TV.Channel.friday
+//samsungTV.channel = Channel.friday
 //samsungTV.whatIsOnTVNow()
-//samsungTV.Enable = false
+//samsungTV.isEnable = false
 //samsungTV.whatIsOnTVNow()
 
 
@@ -77,7 +77,7 @@ class tvWhithSetings: TV {
     
 }
 
-var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: Channel.friday)
 
 
 //sonyTV.turnDounTheVolume()
