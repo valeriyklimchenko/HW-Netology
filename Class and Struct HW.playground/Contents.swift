@@ -12,7 +12,7 @@ class TV {
     var model: [String]
     var isEnable: Bool
     var channel: Channel
-    init(model: [String], Enable: Bool, channel: Channel) {
+    init(model: [String], isEnable: Bool, channel: Channel) {
         self.model = model
         self.isEnable = true
         self.channel = channel
@@ -20,14 +20,14 @@ class TV {
 
     func whatIsOnTVNow() {
         if isEnable == true {
-            print("TV channel \(channel.rawValue)")
+            print("ВЫ смотрите \(channel.rawValue)")
         } else {
-            print("Black screen")
+            print("Черный экран")
         }
     }
 }
 
-var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: Channel.first)
+var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
 
 //samsungTV.whatIsOnTVNow()
 //samsungTV.channel = Channel.friday
@@ -44,53 +44,111 @@ struct Settings {
     var isColorTV: Bool = true
 }
 
-class tvWhithSetings: TV {
+enum ViewMode: String {
+    case tvCannelMode = "Режим просмотра тв-каналов"
+    case IncomingVideoPortMode = "Режим просмотра по входящему видео порту"
+}
 
-    var settings = Settings()
+class TvWithSettings: TV {
+
+    var settings = Settings(volumeControl: [5], isColorTV: true)
+    var isColor = Settings().isColorTV
+    var viewMode: ViewMode
+    private var currentVolume = Settings().volumeControl[5]
+
+    init() {
+        self.settings = Settings(volumeControl: [5], isColorTV: true)
+        self.viewMode = ViewMode.tvCannelMode
+        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
+    }
     
-//    var color = settings.isColorTV
-    
-//    init(settings: Settings) {
-//        self.settings = settings
-//    }
-    
-    var currentVolume = 0.5
     func turnUpTheVolume() {
-        var index = settings.volumeControl.firstIndex(of: currentVolume)
-        if index! < settings.volumeControl.endIndex - 1 {
-            currentVolume = settings.volumeControl[index! + 1]
-            print("Вы увеличили громкость, уровень громкости \(currentVolume)")
-        } else {
-            print("Максимальная громкость \(settings.volumeControl[settings.volumeControl.endIndex - 1])")
+        
+        if isEnable == true {
+            let index = Settings().volumeControl.firstIndex(of: currentVolume)
+            if index! < Settings().volumeControl.endIndex - 1 {
+                currentVolume = Settings().volumeControl[index! + 1]
+                print("Вы увеличили громкость, уровень громкости \(currentVolume)")
+            } else {
+                print("Максимальная громкость \(Settings().volumeControl[Settings().volumeControl.endIndex - 1])")
+            }
         }
     }
     
     func turnDounTheVolume() {
-        var index = settings.volumeControl.firstIndex(of: currentVolume)
-        if index! > settings.volumeControl.startIndex {
-            currentVolume = settings.volumeControl[index! - 1]
-            print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
+        
+        if isEnable == true {
+            let index = Settings().volumeControl.firstIndex(of: currentVolume)
+            if index! > Settings().volumeControl.startIndex {
+                currentVolume = Settings().volumeControl[index! - 1]
+                print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
+            } else {
+                print("Звук выключен")
+            }
+        }
+    }
+    
+    override func whatIsOnTVNow() {
+        
+        if isEnable == false {
+            super.whatIsOnTVNow()
         } else {
-            print("Звук выключен")
+            
+            print("Громкость \(currentVolume)")
+            if isColor == true {
+                print("Цветное изображение")
+            } else {
+                print("Не цветное изображение")
+            }
+            if viewMode == ViewMode.tvCannelMode {
+                super.whatIsOnTVNow()
+            } else {
+                print("Режим просмотра по входящему видео порту")
+            }
         }
     }
     
 }
 
-var sonyTV = tvWhithSetings(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: Channel.friday)
+var sonyTV = TvWithSettings()//(Settings(volumeControl: [0], isColorTV: false))
+
+//sonyTV.viewMode = ViewMode.IncomingVideoPortMode
+sonyTV.viewMode = ViewMode.tvCannelMode
+
+//sonyTV.isEnable = false
+sonyTV.isEnable = true
+
+sonyTV.isColor = false
+//sonyTV.isColor = true
+
+//sonyTV.turnUpTheVolume()
+
+sonyTV.whatIsOnTVNow()
+
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.whatIsOnTVNow()
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.whatIsOnTVNow()
+//sonyTV.turnUpTheVolume()
+//sonyTV.whatIsOnTVNow()
+//sonyTV.turnUpTheVolume()
+//
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
 
 
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
 
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
