@@ -51,13 +51,13 @@ enum ViewMode: String {
 
 class TvWithSettings: TV {
 
-    private var currentVolume: Int = 30
+    private var currentVolume: Int
     var maxVolume: Int = 100
     var isColor: Bool = true
     var viewMode: ViewMode
 
     init() {
-//        self.settings = Settings(volumeControl: [5], isColorTV: true)
+        self.currentVolume = 30
         self.viewMode = ViewMode.tvCannelMode
         super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
     }
@@ -71,12 +71,12 @@ class TvWithSettings: TV {
             currentVolume = volume
         }
     }
+    
     override func whatIsOnTVNow() {
         
         if isEnable == false {
             super.whatIsOnTVNow()
         } else {
-            
             print("Громкость \(currentVolume)")
             if isColor == true {
                 print("Цветное изображение")
