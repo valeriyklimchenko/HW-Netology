@@ -1,38 +1,38 @@
 //Task 1
 
+enum Channel: String {
+    case first = "First"
+    case mtv = "MTV"
+    case tnt = "TNT"
+    case cityTVChannel = "City"
+    case friday = "Friday"
+}
+
 class TV {
     var model: [String]
-    var Enable: Bool = true
+    var isEnable: Bool
     var channel: Channel
-    init(model: [String], Enable: Bool, channel: Channel) {
+    init(model: [String], isEnable: Bool, channel: Channel) {
         self.model = model
-//        self.Enable = Enable
+        self.isEnable = true
         self.channel = channel
     }
 
-    enum Channel: String {
-        case first = "First"
-        case mtv = "MTV"
-        case tnt = "TNT"
-        case cityTVChannel = "City"
-        case friday = "Friday"
-    }
-
     func whatIsOnTVNow() {
-        if Enable == true {
-            print("TV channel \(channel.rawValue)")
+        if isEnable == true {
+            print("ВЫ смотрите \(channel.rawValue)")
         } else {
-            print("Black screen")
+            print("Черный экран")
         }
     }
 }
 
-var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.first)
+var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
 
 //samsungTV.whatIsOnTVNow()
-//samsungTV.channel = TV.Channel.friday
+//samsungTV.channel = Channel.friday
 //samsungTV.whatIsOnTVNow()
-//samsungTV.Enable = false
+//samsungTV.isEnable = false
 //samsungTV.whatIsOnTVNow()
 
 
@@ -44,16 +44,22 @@ struct Settings {
     var isColorTV: Bool = true
 }
 
-class tvWhithSetings: TV {
+enum ViewMode: String {
+    case tvCannelMode = "Режим просмотра тв-каналов"
+    case IncomingVideoPortMode = "Режим просмотра по входящему видео порту"
+}
 
-    var settings = Settings()
-    var color = Settings().isColorTV
-    var volumeControl = Settings().volume
-    init(settings: Settings) {
-        self.settings = settings
-//        self.color = color
-//        self.volumeControl = volumeControl
-        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+class TvWithSettings: TV {
+
+    var settings = Settings(volumeControl: [5], isColorTV: true)
+    var isColor = Settings().isColorTV
+    var viewMode: ViewMode
+    private var currentVolume = Settings().volumeControl[5]
+
+    init() {
+        self.settings = Settings(volumeControl: [5], isColorTV: true)
+        self.viewMode = ViewMode.tvCannelMode
+        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
     }
     
     var currentVolume = volumeControl[5]
@@ -63,22 +69,48 @@ class tvWhithSetings: TV {
     
 //    print(currentVolume)
     func turnUpTheVolume() {
-        let index = settings.volumeControl.firstIndex(of: currentVolume)
-        if index! < settings.volumeControl.endIndex - 1 {
-            currentVolume = settings.volumeControl[index! + 1]
-            print("Вы увеличили громкость, уровень громкости \(currentVolume)")
-        } else {
-            print("Максимальная громкость \(settings.volumeControl[settings.volumeControl.endIndex - 1])")
+        
+        if isEnable == true {
+            let index = Settings().volumeControl.firstIndex(of: currentVolume)
+            if index! < Settings().volumeControl.endIndex - 1 {
+                currentVolume = Settings().volumeControl[index! + 1]
+                print("Вы увеличили громкость, уровень громкости \(currentVolume)")
+            } else {
+                print("Максимальная громкость \(Settings().volumeControl[Settings().volumeControl.endIndex - 1])")
+            }
         }
     }
     
     func turnDounTheVolume() {
-        let index = settings.volumeControl.firstIndex(of: currentVolume)
-        if index! > settings.volumeControl.startIndex {
-            currentVolume = settings.volumeControl[index! - 1]
-            print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
+        
+        if isEnable == true {
+            let index = Settings().volumeControl.firstIndex(of: currentVolume)
+            if index! > Settings().volumeControl.startIndex {
+                currentVolume = Settings().volumeControl[index! - 1]
+                print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
+            } else {
+                print("Звук выключен")
+            }
+        }
+    }
+    
+    override func whatIsOnTVNow() {
+        
+        if isEnable == false {
+            super.whatIsOnTVNow()
         } else {
-            print("Звук выключен")
+            
+            print("Громкость \(currentVolume)")
+            if isColor == true {
+                print("Цветное изображение")
+            } else {
+                print("Не цветное изображение")
+            }
+            if viewMode == ViewMode.tvCannelMode {
+                super.whatIsOnTVNow()
+            } else {
+                print("Режим просмотра по входящему видео порту")
+            }
         }
     }
     
@@ -96,54 +128,45 @@ class tvWhithSetings: TV {
     
 }
 
-var sonyTV = tvWhithSetings(settings: Settings(), model: ["Sony", "43 QLED The Sero 4K TV LS05B"], Enable: true, channel: TV.Channel.friday)
+var sonyTV = TvWithSettings()//(Settings(volumeControl: [0], isColorTV: false))
 
+//sonyTV.viewMode = ViewMode.IncomingVideoPortMode
+sonyTV.viewMode = ViewMode.tvCannelMode
+
+//sonyTV.isEnable = false
+sonyTV.isEnable = true
+
+sonyTV.isColor = false
+//sonyTV.isColor = true
+
+//sonyTV.turnUpTheVolume()
 
 sonyTV.whatIsOnTVNow()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
 
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-//turnUpTheVolume()
-
-
-
-
-
-
-
-
-
-//class tvWhithSetings: TV {
-//
-//    var settings = Settings()
-//
-//    func onOffVolume(_ isSound: Bool = true) -> Double {
-//        if isSound == true {
-//            return 0.5
-//        } else {
-//            return 1
-//        }
-//    }
-//}
-//
-////tvWhithSetings().setting.isColorTV
-//var sonyTV = tvWhithSetings(model: ["Sony", "KD-55X85K"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel)
-//
-////sonyTV.setting.isColorTV = true
-////print(sonyTV.setting.isColorTV)
-//
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
 //sonyTV.whatIsOnTVNow()
-//sonyTV.channel = tvWhithSetings.Channel.mtv
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
+//sonyTV.turnUpTheVolume()
 //sonyTV.whatIsOnTVNow()
+//sonyTV.turnUpTheVolume()
+//sonyTV.whatIsOnTVNow()
+//sonyTV.turnUpTheVolume()
+//
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
+//sonyTV.turnDounTheVolume()
 
-//print(tvWhithSetings(model: ["23"], Enable: true, channel: tvWhithSetings.Channel.cityTVChannel))
+
+
