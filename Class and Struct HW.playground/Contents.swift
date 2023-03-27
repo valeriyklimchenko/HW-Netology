@@ -40,7 +40,7 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], isEnable:
 //Task 2
 
 struct Settings {
-    var volume: Double
+    var volume: Int
     var isColorTV: Bool = true
 }
 
@@ -51,43 +51,26 @@ enum ViewMode: String {
 
 class TvWithSettings: TV {
 
-    var settings = Settings(volumeControl: [5], isColorTV: true)
-    var isColor = Settings().isColorTV
+    private var currentVolume: Int = 30
+    var maxVolume: Int = 100
+    var isColor: Bool = true
     var viewMode: ViewMode
-    private var currentVolume = Settings().volumeControl[5]
 
     init() {
-        self.settings = Settings(volumeControl: [5], isColorTV: true)
+//        self.settings = Settings(volumeControl: [5], isColorTV: true)
         self.viewMode = ViewMode.tvCannelMode
         super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
     }
     
-    func turnUpTheVolume() {
-        
-        if isEnable == true {
-            let index = Settings().volumeControl.firstIndex(of: currentVolume)
-            if index! < Settings().volumeControl.endIndex - 1 {
-                currentVolume = Settings().volumeControl[index! + 1]
-                print("Вы увеличили громкость, уровень громкости \(currentVolume)")
-            } else {
-                print("Максимальная громкость \(Settings().volumeControl[Settings().volumeControl.endIndex - 1])")
-            }
+    func changeVolume(_ volume: Int = 30) {
+        if volume > currentVolume {
+            currentVolume = 100
+        } else if  volume < 0 {
+            currentVolume = 0
+        } else {
+            currentVolume = volume
         }
     }
-    
-    func turnDounTheVolume() {
-        
-        if isEnable == true {
-            let index = Settings().volumeControl.firstIndex(of: currentVolume)
-            if index! > Settings().volumeControl.startIndex {
-                currentVolume = Settings().volumeControl[index! - 1]
-                print("Вы уменьшили громкость, уровень громкости \(currentVolume)")
-            } else {
-                print("Звук выключен")
-            }
-        }
-    }
-    
     override func whatIsOnTVNow() {
         
         if isEnable == false {
@@ -112,6 +95,8 @@ class TvWithSettings: TV {
 
 var sonyTV = TvWithSettings()//(Settings(volumeControl: [0], isColorTV: false))
 
+sonyTV.changeVolume(9999)
+
 //sonyTV.viewMode = ViewMode.IncomingVideoPortMode
 sonyTV.viewMode = ViewMode.tvCannelMode
 
@@ -121,34 +106,8 @@ sonyTV.isEnable = true
 sonyTV.isColor = false
 //sonyTV.isColor = true
 
-//sonyTV.turnUpTheVolume()
-
 sonyTV.whatIsOnTVNow()
 
-//sonyTV.turnUpTheVolume()
-//sonyTV.turnUpTheVolume()
-//sonyTV.whatIsOnTVNow()
-//sonyTV.turnUpTheVolume()
-//sonyTV.turnUpTheVolume()
-//sonyTV.turnUpTheVolume()
-//sonyTV.turnUpTheVolume()
-//sonyTV.whatIsOnTVNow()
-//sonyTV.turnUpTheVolume()
-//sonyTV.whatIsOnTVNow()
-//sonyTV.turnUpTheVolume()
-//
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
-//sonyTV.turnDounTheVolume()
 
 
 
