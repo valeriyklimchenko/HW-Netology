@@ -40,7 +40,7 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], isEnable:
 //Task 2
 
 struct Settings {
-    var volume: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    var volumeControl: Array<Double> = [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
     var isColorTV: Bool = true
 }
 
@@ -62,12 +62,6 @@ class TvWithSettings: TV {
         super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
     }
     
-    var currentVolume = volumeControl[5]
-//    super.init(currentVolume: Double) {
-//        self.currentVolume = currentVolume
-//    }
-    
-//    print(currentVolume)
     func turnUpTheVolume() {
         
         if isEnable == true {
@@ -113,18 +107,6 @@ class TvWithSettings: TV {
             }
         }
     }
-    
-    override func whatIsOnTVNow() {
-        
-        color = Settings().isColorTV
-        if color == true {
-            print("цветной")
-        } else {
-            print("черно-белый")
-        }
-    }
-    
-//        print(currentVolume)
     
 }
 
