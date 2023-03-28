@@ -20,7 +20,7 @@ class TV {
 
     func whatIsOnTVNow() {
         if isEnable == true {
-            print("ВЫ смотрите \(channel.rawValue)")
+            print("Вы смотрите \(channel.rawValue)")
         } else {
             print("Черный экран")
         }
