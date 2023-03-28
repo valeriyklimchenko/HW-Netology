@@ -20,7 +20,7 @@ class TV {
 
     func whatIsOnTVNow() {
         if isEnable == true {
-            print("ВЫ смотрите \(channel.rawValue)")
+            print("Вы смотрите \(channel.rawValue)")
         } else {
             print("Черный экран")
         }
@@ -52,7 +52,6 @@ enum ViewMode: String {
 class TvWithSettings: TV {
 
     var settings = Settings(volumeControl: [5], isColorTV: true)
-    var isColor = Settings().isColorTV
     var viewMode: ViewMode
     private var currentVolume = Settings().volumeControl[5]
 
@@ -95,7 +94,7 @@ class TvWithSettings: TV {
         } else {
             
             print("Громкость \(currentVolume)")
-            if isColor == true {
+            if Settings().isColorTV == true {
                 print("Цветное изображение")
             } else {
                 print("Не цветное изображение")
@@ -118,7 +117,7 @@ sonyTV.viewMode = ViewMode.tvCannelMode
 //sonyTV.isEnable = false
 sonyTV.isEnable = true
 
-sonyTV.isColor = false
+sonyTV.settings.isColorTV = false
 //sonyTV.isColor = true
 
 //sonyTV.turnUpTheVolume()
