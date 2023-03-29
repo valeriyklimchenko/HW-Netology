@@ -50,23 +50,27 @@ enum ViewMode: String {
 }
 
 class TvWithSettings: TV {
-
-    var settings = Settings(volume: 30, isColorTV: true)
-    var viewMode: ViewMode
-
-    init() {
-        self.viewMode = ViewMode.tvCannelMode
-        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
+    
+    private var currentVolume: Int
+    var settings: Settings {
+        willSet {
+            if newValue.volume > 100 {
+                currentVolume = 100
+            } else if newValue.volume < 0 {
+                currentVolume = 0
+            } else {
+                currentVolume = newValue.volume
+            }
+        }
     }
     
-    func changeVolume(_ volume: Int = 30) {
-        if volume > 100 {
-            settings.volume = 100
-        } else if  volume < 0 {
-            settings.volume = 0
-        } else {
-            settings.volume = volume
-        }
+    var viewMode: ViewMode
+
+    init(settingss: Settings) {
+        self.viewMode = ViewMode.tvCannelMode
+        self.currentVolume = 30
+        self.settings = Settings(volume: 30, isColorTV: true)
+        super.init(model: ["Sony", "43 QLED The Sero 4K TV LS05B"], isEnable: true, channel: Channel.first)
     }
     
     override func whatIsOnTVNow() {
@@ -74,7 +78,7 @@ class TvWithSettings: TV {
         if isEnable == false {
             super.whatIsOnTVNow()
         } else {
-            print("Громкость \(settings.volume)")
+            print("Громкость \(currentVolume)")
             if settings.isColorTV == true {
                 print("Цветное изображение")
             } else {
@@ -90,16 +94,16 @@ class TvWithSettings: TV {
     
 }
 
-var sonyTV = TvWithSettings()//(Settings(volumeControl: [0], isColorTV: false))
+var sonyTV = TvWithSettings(settingss: Settings(volume: 30, isColorTV: true))
 
-sonyTV.changeVolume(86)
+//sonyTV.currentVolume = -999
 
 //sonyTV.viewMode = ViewMode.IncomingVideoPortMode
 sonyTV.viewMode = ViewMode.tvCannelMode
 
 //sonyTV.isEnable = false
 sonyTV.isEnable = true
-
+sonyTV.settings.volume = 999
 //sonyTV.settings.isColorTV = false
 
 //sonyTV.isColor = true
