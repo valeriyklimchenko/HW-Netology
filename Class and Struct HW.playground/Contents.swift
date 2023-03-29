@@ -19,7 +19,7 @@ class TV {
     }
 
     func whatIsOnTVNow() {
-        if isEnable == true {
+        if isEnable {
             print("Вы смотрите \(channel.rawValue)")
         } else {
             print("Черный экран")
@@ -40,7 +40,7 @@ var samsungTV = TV(model: ["Samsung", "43 QLED The Sero 4K TV LS05B"], isEnable:
 //Task 2
 
 struct Settings {
-    var volume: Int
+    var volume: Int = 30
     var isColorTV: Bool = true
 }
 
@@ -50,8 +50,7 @@ enum ViewMode: String {
 }
 
 class TvWithSettings: TV {
-
-    var settings = Settings(volume: 30, isColorTV: true)
+    private var currentVolume = Settings().volume
     var viewMode: ViewMode
 
     init() {
@@ -61,11 +60,11 @@ class TvWithSettings: TV {
     
     func changeVolume(_ volume: Int = 30) {
         if volume > 100 {
-            settings.volume = 100
+            currentVolume = 100
         } else if  volume < 0 {
-            settings.volume = 0
+            currentVolume = 0
         } else {
-            settings.volume = volume
+            currentVolume = volume
         }
     }
     
@@ -74,8 +73,8 @@ class TvWithSettings: TV {
         if isEnable == false {
             super.whatIsOnTVNow()
         } else {
-            print("Громкость \(settings.volume)")
-            if settings.isColorTV == true {
+            print("Громкость \(currentVolume)")
+            if Settings().isColorTV == true {
                 print("Цветное изображение")
             } else {
                 print("Не цветное изображение")
@@ -92,8 +91,8 @@ class TvWithSettings: TV {
 
 var sonyTV = TvWithSettings()//(Settings(volumeControl: [0], isColorTV: false))
 
-sonyTV.changeVolume(86)
-
+sonyTV.changeVolume(999)
+//sonyTV.currentVolume = -20
 //sonyTV.viewMode = ViewMode.IncomingVideoPortMode
 sonyTV.viewMode = ViewMode.tvCannelMode
 
