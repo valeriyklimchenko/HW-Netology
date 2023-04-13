@@ -18,19 +18,19 @@ struct Track {
 class Album {
     
     let albumName: String
-    private var trackList: [String: [String]]
+    private var trackList: [Track]
     private var trackNumber: Int {
         trackList.count
     }
     
-    init(albumName: String, trackList: [String: [String]]) {
+    init(albumName: String, trackList: [Track]) {
         self.albumName = albumName
         self.trackList = trackList
         }
     
     
     func addTrack(_ newTrack: Track ,to otherAlbum: Album) {
-        trackList[newTrack.name] = [newTrack.performer, newTrack.country.rawValue, newTrack.duration]
+        trackList.append(newTrack)
             print("Track '\(newTrack.name)' added to '\(otherAlbum.albumName)'")
         }
     
