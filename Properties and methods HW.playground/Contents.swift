@@ -21,7 +21,7 @@ struct Track {
 class Album {
     
     let albumName: String
-    private var trackList: [Track]
+    private(set) var trackList: [Track]
     private var trackNumber: Int {
         trackList.count
     }
@@ -32,9 +32,9 @@ class Album {
         }
     
     
-    func addTrack(_ newTrack: Track ,to otherAlbum: Album) {
+    func addTrack(_ newTrack: Track) {
         trackList.append(newTrack)
-            print("Track '\(newTrack.name)' added to '\(otherAlbum.albumName)'")
+            print("Track '\(newTrack.name)' added to '\(self.albumName)'")
         }
     
     func removeTrack(_ trackRemoved: Track) {
@@ -55,11 +55,11 @@ class Album {
         
 var onceAlbum = Album(albumName: "Once", trackList: [])
 var wish = Track(name: "Wish I Had an Angel", performer: "Tarja Turunen", duration: "4.1", country: Country.finland)
-onceAlbum.addTrack(wish, to: onceAlbum)
+onceAlbum.addTrack(wish)
 var nemo = Track(name: "Nemo", performer: "Tarja Turunen", duration: "4.6", country: Country.finland)
-onceAlbum.addTrack(nemo, to: onceAlbum)
+onceAlbum.addTrack(nemo)
 var planet = Track(name: "Planet Hell", performer: "Tarja Turunen", duration: "4.6", country: Country.finland)
-onceAlbum.addTrack(planet, to: onceAlbum)
+onceAlbum.addTrack(planet)
 onceAlbum.removeTrack(nemo)
 
 onceAlbum.showTrackList()
@@ -78,7 +78,7 @@ class Library {
     
     func moveTrackToOtherAlbum(_ newTrack: Track, from oneAlbum: Album, to otherAlbum: Album) {
         oneAlbum.removeTrack(newTrack)
-        otherAlbum.addTrack(newTrack, to: otherAlbum)
+        otherAlbum.addTrack(newTrack)
         
     }
     
@@ -91,5 +91,5 @@ myLibrary.moveTrackToOtherAlbum(wish, from: onceAlbum, to: myFavoriteAlbum)
 myLibrary.moveTrackToOtherAlbum(planet, from: onceAlbum, to: myFavoriteAlbum)
 onceAlbum.showTrackList()
 
-myFavoriteAlbum.addTrack(Track(name: "The Siren", performer: "Tarja Turunen", duration: "5", country: Country.finland), to: myFavoriteAlbum)
+myFavoriteAlbum.addTrack(Track(name: "The Siren", performer: "Tarja Turunen", duration: "5", country: Country.finland))
 myFavoriteAlbum.showTrackList()
