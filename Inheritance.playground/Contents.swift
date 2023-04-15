@@ -54,6 +54,11 @@ final class RockArtist: Artist {
     override func whriteTrack(_ trackName: String) {
         print("\(self.name) just write \(trackName)")
     }
+    
+    func playLoudMusicOnStage() {
+        print("We play loud music on stage")
+    }
+    
 }
 
 
@@ -61,7 +66,7 @@ var rockArtist = RockArtist(name: "", country: Country.GB, genre: Genre.errorGen
 rockArtist.playTrack("New Track")
 rockArtist.whriteTrack("New Track")
 rockArtist.genre
-
+rockArtist.playLoudMusicOnStage()
 
 
 final class StreetArtist: Artist {
@@ -89,6 +94,11 @@ final class StreetArtist: Artist {
     override func whriteTrack(_ trackName: String) {
         print("\(self.name) can`t to write music")
     }
+    
+    func collectMoneyFromViewers() {
+        print("Money has been collected from viewers")
+    }
+    
 }
 
 var popArtist = StreetArtist(isUnderRoof: true, name: "Pop Artist", country: Country.usa, genre: Genre.errorGenre)
@@ -121,12 +131,17 @@ final class TheaterArtist: Artist {
             print("\(self.name) playing \(songName)")
         }
     }
+    
+    func CryOnStage() {
+        print("Artist cry on stage, the audience continues to sleep")
+    }
+    
 }
 
 var operaArtist = TheaterArtist(name: "Opera Artist", country: Country.russia, genre: Genre.pop)
 operaArtist.genre = Genre.errorGenre
 operaArtist.genre
-
+operaArtist.CryOnStage()
 
 var array = [Artist]()
 let tarjaTurunen = RockArtist(name: "tarjaTurunen", country: Country.finland, genre: Genre.rock)
@@ -137,7 +152,7 @@ array.append(operaSinger)
 array.append(streetSonger)
 array
 
-tarjaTurunen.whriteTrack("123")
+tarjaTurunen.whriteTrack("new track")
 
 
 
