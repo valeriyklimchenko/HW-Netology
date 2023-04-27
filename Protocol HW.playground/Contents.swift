@@ -29,9 +29,9 @@ protocol DealershipProtocol {
     
     var name: DealershipName { get }
     var showroomCapacity: Int { get }
-    var stockCars: Array<Car> { get set } //Автомобили на парковке склада
-    var showroomCars: Array<Car> { get set } //Авомобили в автосалоне
-    var car: Array<Car> { get set } //Все автомобили в наличии
+    var stockCars: [Car] { get set } //Автомобили на парковке склада
+    var showroomCars: [Car] { get set } //Авомобили в автосалоне
+    var car: [Car] { get set } //Все автомобили в наличии
     func offerAccesories(_ accesories: [Accessories])
     func presaleService(_ car: inout Car)
     func addToShowroom(_ car: inout Car)
@@ -102,8 +102,8 @@ class DealerClass: DealershipProtocol {
     var name: DealershipName
     var tagline: String
     let showroomCapacity: Int
-    var stockCars: Array<Car>
-    var showroomCars: Array<Car>
+    var stockCars: [Car]
+    var showroomCars: [Car]
     var car: [Car] {
         get {
             return stockCars + showroomCars
@@ -131,8 +131,12 @@ class DealerClass: DealershipProtocol {
     }
     
     func presaleService(_ car: inout Car) {
-        car.isServiced = true
-        print("Для автомобиля \(car.model) успешно пройдена предпродажная подготовка")
+        if car.isServiced {
+            print("Предпродажная подготовка уже проводилась")
+        } else {
+            car.isServiced = true
+            print("Для автомобиля \(car.model) успешно пройдена предпродажная подготовка")
+        }
     }
     
     func addToShowroom(_ car: inout Car) {
