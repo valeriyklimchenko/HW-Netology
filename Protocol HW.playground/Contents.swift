@@ -22,32 +22,34 @@ protocol Car {
     var accesories: [Accessories] { get set }
     var isServiced: Bool { get set }
     var specialOffer: Bool { get set }
+    var vin: String { get }
 
 }
 
 protocol DealershipProtocol {
     
-    var name: DealershipName { get }
+    var name: DealershipName { get set }
     var showroomCapacity: Int { get }
     var stockCars: [Car] { get set } //Автомобили на парковке склада
     var showroomCars: [Car] { get set } //Авомобили в автосалоне
     var car: [Car] { get set } //Все автомобили в наличии
     func offerAccesories(_ accesories: [Accessories])
     func presaleService(_ car: inout Car)
-    func addToShowroom(_ car: inout Car)
+    func addToShowroom(_ car: Car)
     func sellCar(_ car: Car)
     func orderCar()
 }
 
 struct Bmw: Car {
     
-    var model: Model = Model.bmw
-    var color: String = "black"
-    var buildDate = (12, 02, 2022)
-    var price: Double = 5500000.00
+    var model: Model
+    var color: String
+    var buildDate: (Int, Int, Int)
+    var price: Double
     var accesories: [Accessories] = [.toning, .rugs, .mudFlaps]
-    var isServiced: Bool = true
+    var isServiced: Bool = false
     var specialOffer: Bool = false
+    var vin: String
 }
 
 struct Honda: Car {
@@ -59,6 +61,7 @@ struct Honda: Car {
     var accesories: [Accessories] = [.toning, .rugs, .mudFlaps]
     var isServiced: Bool = false
     var specialOffer: Bool = false
+    var vin: String
 
 }
 
@@ -71,6 +74,7 @@ struct Audi: Car {
     var accesories: [Accessories] = [.toning, .rugs, .mudFlaps, .signaling]
     var isServiced: Bool = true
     var specialOffer: Bool = false
+    var vin: String
 
 }
 
@@ -83,6 +87,7 @@ struct Lexus: Car {
     var accesories: [Accessories] = [.toning, .rugs, .mudFlaps, .signaling]
     var isServiced: Bool = false
     var specialOffer: Bool = false
+    var vin: String
 
 }
 
@@ -95,12 +100,12 @@ struct Volvo: Car {
     var accesories: [Accessories] = [.toning, .rugs, .mudFlaps, .signaling]
     var isServiced: Bool = false
     var specialOffer: Bool = false
+    var vin: String
 
 }
 
 class DealerClass: DealershipProtocol {
     var name: DealershipName
-    var tagline: String
     let showroomCapacity: Int
     var stockCars: [Car]
     var showroomCars: [Car]
@@ -114,13 +119,12 @@ class DealerClass: DealershipProtocol {
         }
     }
     
-    init(name: DealershipName, tagline: String, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+    init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
         self.name = name
-        self.tagline = tagline
         self.showroomCapacity = showroomCapacity
         self.stockCars = stockCars
         self.showroomCars = showroomCars
-//        self.car = car
+        self.car = car
     }
     
     func offerAccesories(_ accesories: [Accessories]) {
@@ -139,14 +143,17 @@ class DealerClass: DealershipProtocol {
         }
     }
     
-    func addToShowroom(_ car: inout Car) {
-        presaleService(&car)
+    func addToShowroom(_ car: Car) {
         if stockCars.isEmpty {
             print("Нет автомобилей на парковке")
         } else {
-            let newCar = stockCars[0]
-            stockCars.removeFirst()
-            showroomCars.append(newCar)
+            for (n,m) in stockCars.enumerated() {
+                if m.model == car.model {
+                    stockCars.remove(at: n)
+                    break
+                }
+            }
+            showroomCars.append(car)
             print("Автомобиль \(car.model) перемещен с парковки в автосалон")
         }
     }
@@ -169,83 +176,123 @@ class DealerClass: DealershipProtocol {
             }
         }
     }
+        
     func orderCar() {
         if name == DealershipName.bmw {
-            var car = Bmw()
-            car.isServiced = false
-            stockCars.append(car)
+            let car = factory.randomElement()
+            stockCars.append(car!)
             print("Добавлен автомобиль на парковку \(name.self)")
         } else if name == DealershipName.honda {
-            var car = Honda()
-            car.isServiced = false
-            stockCars.append(car)
+            let car = factory.randomElement()
+            stockCars.append(car!)
             print("Добавлен автомобиль на парковку \(name.self)")
         } else if name == DealershipName.audi{
-            var car = Audi()
-            car.isServiced = false
-            stockCars.append(car)
+            let car = factory.randomElement()
+            stockCars.append(car!)
             print("Добавлен автомобиль на парковку \(name.self)")
         } else if name == DealershipName.lexus {
-            var car = Lexus()
-            car.isServiced = false
-            stockCars.append(car)
+            let car = factory.randomElement()
+            stockCars.append(car!)
             print("Добавлен автомобиль на парковку \(name.self)")
         } else if name == DealershipName.volvo {
-            var car = Volvo()
-            car.isServiced = false
-            stockCars.append(car)
+            let car = factory.randomElement()
+            stockCars.append(car!)
             print("Добавлен автомобиль на парковку \(name.self)")
         }
     }
 }
 
+//Автомобили с завода
+let bmwX5Black = Bmw(model: .bmw, color: "black", buildDate: (20, 02, 2023), price: 7300000, vin: "WBAPD11080WF38461")
+let bmwX5Wight = Bmw(model: .bmw, color: "wight", buildDate: (20, 03, 2023), price: 7450000, vin: "WBAPD11080WF27562")
+let bmwX5Red = Bmw(model: .bmw, color: "red", buildDate: (20, 04, 2023), price: 7600000, vin: "WBAPD11080WF295732")
+let factory = [bmwX5Black, bmwX5Wight, bmwX5Red]
 
-//Создадим дилерские центры
-var bmwDealer = DealerClass(name: DealershipName.bmw, tagline: "С удовольствием за рулем", showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
-var hondaDealer = DealerClass(name: DealershipName.honda, tagline: "Сначала человек, потом машина.", showroomCapacity: 55, stockCars: [], showroomCars: [], car: [])
-var audiDealer = DealerClass(name: DealershipName.audi, tagline: "Продвижение через технологии", showroomCapacity: 109, stockCars: [], showroomCars: [], car: [])
-var lexusDealer = DealerClass(name: DealershipName.lexus, tagline: "Неудержимое стремление к совершенству", showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
-var volvoDealer = DealerClass(name: DealershipName.volvo, tagline: "Вольво для жизни", showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
-
-//Массив, слоган
-let dealerships = [bmwDealer, hondaDealer, audiDealer, lexusDealer, volvoDealer]
-for dealer in dealerships {
-    print("\(dealer.name) : \(dealer.tagline)")
+//Создадим классы дилерских центров
+class BMWClass: DealerClass {
+    let tagline: String
+    override init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+        self.tagline = "С удовольствием за рулем"
+        super.init(name: .bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
     }
+}
+
+class HondaClass: DealerClass {
+    let tagline: String
+    override init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+        self.tagline = "Сначала человек, потом машина"
+        super.init(name: .honda, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+    }
+}
+
+class AudiClass: DealerClass {
+    let tagline: String
+    override init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+        self.tagline = "Продвижение через технологии"
+        super.init(name: .audi, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+    }
+}
+
+class LexusClass: DealerClass {
+    let tagline: String
+    override init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+        self.tagline = "Неудержимое стремление к совершенству"
+        super.init(name: .lexus, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+    }
+}
+
+class VolvoClass: DealerClass {
+    let tagline: String
+    override init(name: DealershipName, showroomCapacity: Int, stockCars: [Car], showroomCars: [Car], car: [Car]) {
+        self.tagline = "Вольво для жизни"
+        super.init(name: .lexus, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+    }
+}
+
+//Инициализация дилерских центров
+var bmwDealer = BMWClass(name: DealershipName.bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+var hondaDealer = HondaClass(name: DealershipName.bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+var audiDealer = AudiClass(name: DealershipName.bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+var lexusDealer = LexusClass(name: DealershipName.bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+var volvoDealer = VolvoClass(name: DealershipName.bmw, showroomCapacity: 50, stockCars: [], showroomCars: [], car: [])
+
+//Показать слогпн с использованием конструкции приведения типов
+let dealerships = [bmwDealer, hondaDealer, audiDealer, lexusDealer, volvoDealer]
+
+//Экземпляр bmwDealer является наследником DealerClass, DealershipProtocol, BMWClass
+for dealer in dealerships {
+    if dealer is DealerClass {
+        if dealer is DealershipProtocol {
+            if dealer is BMWClass {
+                print(bmwDealer.tagline)
+            }
+            if dealer is HondaClass {
+                print(hondaDealer.tagline)
+            }
+            if dealer is AudiClass {
+                print(audiDealer.tagline)
+            }
+            if dealer is LexusClass {
+                print(lexusDealer.tagline)
+            }
+            if dealer is VolvoClass {
+                print(volvoDealer.tagline)
+            }
+        }
+    }
+}
 
 //Добавляем автомобили
-var bmwAuto: Car = Bmw()
+var bmwAuto = Bmw(model: .bmw, color: "blue", buildDate: (20, 02, 2022), price: 6800000, vin: "WBAPD11080WF92759")
 bmwDealer.orderCar()
 bmwDealer.orderCar()
 bmwDealer.showroomCars
 bmwDealer.stockCars
 bmwDealer.car
-bmwDealer.addToShowroom(&bmwAuto)
+bmwDealer.addToShowroom(bmwAuto)
 bmwDealer.showroomCars
 bmwDealer.stockCars
 bmwDealer.car
-
-
-
-var hondaAuto: Car = Honda()
-hondaDealer.orderCar()
-hondaDealer.orderCar()
-hondaDealer.addToShowroom(&hondaAuto)
-
-var audiAuto: Car = Audi()
-audiDealer.orderCar()
-audiDealer.orderCar()
-audiDealer.addToShowroom(&audiAuto)
-
-var lexusAuto: Car = Lexus()
-lexusDealer.orderCar()
-lexusDealer.orderCar()
-lexusDealer.addToShowroom(&lexusAuto)
-
-var volvoAuto: Car = Volvo()
-volvoDealer.orderCar()
-volvoDealer.orderCar()
-volvoDealer.addToShowroom(&volvoAuto)
 
 protocol SpecialOffer {
     func addEmergencyPack()
